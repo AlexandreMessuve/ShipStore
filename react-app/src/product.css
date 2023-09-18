@@ -1,0 +1,10 @@
+.Product{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    font-size: 2.6em;
+}
+
+h1{
+    text-align: center;
+}
