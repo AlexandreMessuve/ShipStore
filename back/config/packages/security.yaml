@@ -16,6 +16,7 @@ security:
         login:
             pattern:  ^/api/login
             stateless: true
+            entry_point: jwt
             provider: app_user_provider
             json_login:
                 check_path: /api/login
@@ -23,7 +24,17 @@ security:
                 password_path: password
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
-
+            jwt: ~
+            refresh_jwt:
+                check_path: /api/token/refresh
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
+        api:
+            stateless: true
+            pattern: ^/api
+            jwt: ~
         main:
             pattern:   ^/
             provider: app_user_provider
@@ -40,11 +51,11 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/api/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api/(login|token/refresh), roles: PUBLIC_ACCESS }
         - { path: ^/api/register, roles: PUBLIC_ACCESS }
         - { path: ^/api/products, roles: PUBLIC_ACCESS }
         - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/admin, roles: ROLE_ADMIN }
+        #- { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

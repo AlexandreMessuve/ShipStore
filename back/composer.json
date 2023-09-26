@@ -11,8 +11,8 @@
         "doctrine/doctrine-bundle": "^2.10",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.16",
-        "easycorp/easyadmin-bundle": "^4.7",
-        "lexik/jwt-authentication-bundle": "2.19",
+        "gesdinet/jwt-refresh-token-bundle": "^1.1",
+        "lexik/jwt-authentication-bundle": "*",
         "nelmio/cors-bundle": "^2.3",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.24",
@@ -65,6 +65,9 @@
         },
         "post-install-cmd": [
             "@auto-scripts"
+        ],
+        "start": [
+            "symfony serve"
         ],
         "post-update-cmd": [
             "@auto-scripts"

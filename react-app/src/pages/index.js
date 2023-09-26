@@ -1,19 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ProductList from "../component/ProductList";
-import "../product.css";
 
 const Home = () => {
+
     return (
-        <div>
-            <div
-                style={{
-                    justifyContent: 'center',
-                }}
-            >
-
-                <ProductList/>
-            </div>
-
+        <div className={"w-100-l mx-auto"}>
+            <h1 className={"text-bold text-xl text-center"}>Bienvenue sur ShipStore</h1>
+            <ProductList/>
         </div>
     );
 };

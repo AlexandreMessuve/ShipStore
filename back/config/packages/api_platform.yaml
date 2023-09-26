@@ -1,16 +1,10 @@
 api_platform:
-    title: Zone51 API
+    title: Hello API Platform
     version: 1.0.0
     # Good defaults for REST APIs
     formats:
         json: ['application/json']
-    swagger:
-        api_keys:
-            JWT:
-                name: Authorization
-                type: header
     defaults:
-
         stateless: true
         cache_headers:
             vary: ['Content-Type', 'Authorization', 'Origin']

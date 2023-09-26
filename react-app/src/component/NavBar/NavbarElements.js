@@ -7,22 +7,23 @@ export const Nav = styled.nav`
   height: 85px;
   display: flex;
   justify-content: space-between;
-  padding: 0.2rem calc((100vw - 1000px) / 2);
+  //padding: 0.2rem calc((100vw - 1000px) / 2);
   z-index: 12;
   /* Third Nav */
   /* justify-content: flex-start; */
 `;
 
 export const NavLink = styled(Link)`
-  color: #808080;
+  color: #ffffff;
   display: flex;
   align-items: center;
   text-decoration: none;
   padding: 0 1rem;
   height: 100%;
   cursor: pointer;
+
   &.active {
-    color: #000000;
+    color: #c9c8c8;
   }
 `;
 
@@ -42,8 +43,8 @@ export const Bars = styled(FaBars)`
 
 export const NavMenu = styled.div`
   display: flex;
-  align-items: center;
   margin-right: -24px;
+  align-items: start;
   /* Second Nav */
   /* margin-right: 24px; */
   /* Third Nav */
@@ -75,6 +76,7 @@ export const NavBtnLink = styled(Link)`
   border: none;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  position: relative;
   text-decoration: none;
   /* Second Nav */
   margin-left: 24px;

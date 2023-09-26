@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import "../product.css";
 import {useParams} from "react-router-dom";
 
 function withParams(Component){

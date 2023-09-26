@@ -1,14 +1,13 @@
 import React from 'react';
-import "../product.css";
 import ProductDetail from "../component/ProductDetail";
 
 const Product= () => {
     return (
-        <div>
+        <div className={'w-100-l'}>
                 <div>
-                    <h1 className={'f-5'}>Detail</h1>
+                    <h1 className={'f-5 text-center'}>Fiche Produit</h1>
                 </div>
-                <div>
+                <div className={"mx-auto"}>
                     <ProductDetail/>
                 </div>
         </div>
