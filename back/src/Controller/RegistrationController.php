@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Adress;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,26 +24,41 @@ class RegistrationController extends AbstractController
                              EntityManagerInterface $entityManager,
                              UserRepository $userRepository): Response
     {
-        $data = $request->getContent();
-        $encoders = [new XmlEncoder(), new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
+        $json = $request->getContent();
+        //$encoders = [new XmlEncoder(), new JsonEncoder()];
+        //$normalizers = [new ObjectNormalizer()];
 
-        $serializer = new Serializer($normalizers, $encoders);
-        $user = $serializer->deserialize($data, User::class, 'json');
-
-
-        //on vérifie que l'entité user n'est pas vide
-        if (isset($user)) {
-            if (!empty($user->getEmail()
-                && !empty($user->getplainPassword()
-                    && !empty($user->getFirstname())
-                    && !empty($user->getLastname())
-                    && !empty($user->getPhone())))){
+        $data = json_decode($json, JSON_OBJECT_AS_ARRAY);
+        //on vérifie que tout les champs sont rempli
+        if (isset($data)) {
+            if (!empty($data['email'])
+                && !empty($data['plainPassword'])
+                    && !empty($data['firstname'])
+                    && !empty($data['lastname'])
+                    && !empty($data['phone'])
+                    && !empty($data['adresse'])
+                    && !empty($data['city'])
+                    && !empty($data['postalCode'])
+                    && !empty($data['country'])
+            ){
+                // on initialise le nouvel utilisateur
+                $user = new User();
+                $user->setEmail($data['email'])
+                    ->setPlainPassword($data['plainPassword'])
+                    ->setFirstname($data['firstname'])
+                    ->setLastname($data['lastname'])
+                    ->setPhone($data['phone']);
                 //on vérifie si l'email est deja présente en bdd
                 $user2 = $userRepository->findOneBy(['email' => $user->getEmail()]);
                 if (isset($user2)){
                     return new Response('error email', 400);
                 }else{
+                    $adress = new Adress();
+                    $adress->setStreet($data['adresse'])
+                        ->setPostalCode($data['postalCode'])
+                        ->setCity($data['city'])
+                        ->setCountry($data['country'])
+                        ->setUser($user);
                     // encode the plain password
                     $user->setPassword(
                         $userPasswordHasher->hashPassword(
@@ -51,7 +67,11 @@ class RegistrationController extends AbstractController
                         )
                     )
                         ->eraseCredentials();
+
                     $entityManager->persist($user);
+                    $entityManager->flush();
+
+                    $entityManager->persist($adress);
                     $entityManager->flush();
                     // do anything else you need here, like send an email
 
