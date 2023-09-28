@@ -1,3 +1,3 @@
-# zone51
+# ShipStore
 
-Projet site e commerce de goudies de la zone 51
+Projet e commerce vente de bateau en tout genre
